@@ -3,6 +3,7 @@
 from langevinsans.langevin import (
     BOLTZMANN_J_PER_K,
     dimensionless_field,
+    direction_cosine_density,
     langevin_curve,
     langevin_function,
     langevin_moments,
@@ -36,6 +37,7 @@ __all__ = [
     "SANSConfig",
     "azimuthal_moment",
     "dimensionless_field",
+    "direction_cosine_density",
     "langevin_curve",
     "langevin_function",
     "langevin_moments",

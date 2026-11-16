@@ -32,12 +32,18 @@ test = [
   "pytest>=8.3,<9",
   "pytest-cov>=6,<8",
 ]
+web = [
+  "matplotlib>=3.9,<4",
+  "shiny>=1.8,<2",
+  "shinylive==0.8.12",
+]
 dev = [
   "mypy>=1.14,<2",
   "ruff>=0.9,<1",
 ]
 
 [project.urls]
+Homepage = "https://adamsmp92.github.io/LangevinSANS/"
 Repository = "https://github.com/AdamsMP92/LangevinSANS"
 Issues = "https://github.com/AdamsMP92/LangevinSANS/issues"
 

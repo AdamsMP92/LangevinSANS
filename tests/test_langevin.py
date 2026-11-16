@@ -7,6 +7,7 @@ from langevinsans import (
     InputValidationError,
     ParticleProperties,
     dimensionless_field,
+    direction_cosine_density,
     langevin_curve,
     langevin_function,
     langevin_moments,
@@ -46,6 +47,19 @@ def test_closed_form_moments_match_independent_boltzmann_quadrature() -> None:
     np.testing.assert_allclose(mean_m[2], mean_z, rtol=1.0e-13)
     np.testing.assert_allclose(gamma[2, 2], second_z, rtol=1.0e-13)
     np.testing.assert_allclose(gamma[0, 0], (1.0 - second_z) / 2.0, rtol=1.0e-13)
+
+
+def test_exact_direction_cosine_density_is_normalized_and_field_symmetric() -> None:
+    u, weights = np.polynomial.legendre.leggauss(240)
+    positive = direction_cosine_density(u, 7.5)
+    negative = direction_cosine_density(-u, -7.5)
+
+    np.testing.assert_allclose(np.sum(weights * positive), 1.0, rtol=1.0e-13)
+    np.testing.assert_allclose(positive, negative, rtol=1.0e-14)
+    np.testing.assert_array_equal(
+        direction_cosine_density(np.array([-1.0, 0.0, 1.0]), 0.0),
+        np.full(3, 0.5),
+    )
 
 
 def test_closed_form_moments_are_normalized_and_isotropic_at_zero() -> None:
@@ -89,6 +103,10 @@ def test_physical_scaling_and_symmetric_field_curve() -> None:
     )
     np.testing.assert_allclose(result.gamma, result.gamma[::-1])
     np.testing.assert_allclose(
+        result.anisotropy_parameter_perpendicular,
+        result.anisotropy_parameter_perpendicular[::-1],
+    )
+    np.testing.assert_allclose(
         result.magnetization_a_per_m,
         particle.saturation_magnetization_a_per_m * result.reduced_magnetization,
     )
@@ -123,3 +141,5 @@ def test_custom_field_validation() -> None:
         dimensionless_field(particle, [0.0, np.nan])
     with pytest.raises(InputValidationError):
         langevin_moments([0.0, np.inf])
+    with pytest.raises(InputValidationError):
+        direction_cosine_density([0.0, 1.1], 1.0)

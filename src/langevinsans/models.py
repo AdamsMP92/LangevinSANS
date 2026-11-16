@@ -120,3 +120,16 @@ class LangevinResult:
             np.einsum("...i,...j->...ij", self.mean_m, self.mean_m),
         )
         return self.gamma - outer
+
+    @property
+    def anisotropy_parameter_perpendicular(self) -> FloatArray:
+        """Return the conventional perpendicular SANS anisotropy parameter."""
+
+        numerator = self.gamma[:, 0, 0] + self.gamma[:, 1, 1]
+        denominator = self.gamma[:, 0, 0] + self.gamma[:, 2, 2]
+        return np.divide(
+            numerator,
+            denominator,
+            out=np.full_like(numerator, np.nan),
+            where=denominator != 0.0,
+        )

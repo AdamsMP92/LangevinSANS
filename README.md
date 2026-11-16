@@ -10,9 +10,13 @@ tensor analytically as functions of the externally applied magnetic flux
 density, then uses the same detector conventions as SWSANS for magnetic
 unpolarized and polarization-averaged spin-flip SANS.
 
+[Open the browser app](https://adamsmp92.github.io/LangevinSANS/) ·
+[View the source](https://github.com/AdamsMP92/LangevinSANS)
+
 ## What is included
 
 - a numerically stable Langevin function;
+- the exact normalized equilibrium orientational distribution;
 - analytical first moments and
   `Gamma_kl = <m_k m_l>` for a field along the laboratory `z` axis;
 - reversible field curves for reduced and dimensional magnetization;
@@ -21,6 +25,7 @@ unpolarized and polarization-averaged spin-flip SANS.
 - azimuthally averaged `I(q)`, `p(r)`, and `c(r) = p(r) / r^2`;
 - magnetic unpolarized and polarization-averaged spin-flip cross sections;
 - field scans of the azimuthally averaged SANS intensity;
+- a Shiny/Shinylive interface that runs entirely in the browser;
 - a reproducible Pixi environment and a focused scientific test suite.
 
 The standard Langevin model is an equilibrium model. It therefore predicts a
@@ -31,7 +36,13 @@ hysteresis.
 
 ```bash
 pixi run test
+pixi run app
 ```
+
+The second command serves the local app at `http://127.0.0.1:8000`. The model
+selector currently exposes the exact analytical solution. Its dispatch layer
+is prepared for a separate future simulation backend without changing the
+analytical implementation.
 
 ```python
 from langevinsans import (
@@ -67,6 +78,7 @@ in [docs/model.md](docs/model.md).
 ```bash
 pixi run format
 pixi run check
+pixi run export-site
 ```
 
 Pixi supports the locked macOS ARM64 and Linux 64-bit environments. The Python
@@ -76,10 +88,11 @@ package itself requires Python 3.12 and NumPy.
 
 This version assumes identical fixed-magnitude moments, no anisotropy, no
 interparticle interaction, and thermal equilibrium in a prescribed uniform
-external field. A later layer can add a Shiny/Shinylive interface analogous to
-SWSANS. A separate future model may add stochastic dynamics, thermal noise,
-and particle anisotropy; those effects will not be folded silently into the
-analytical Langevin reference model.
+external field. The browser interface follows the SWSANS layout and adds an
+exact ODF view and an azimuthally averaged SANS field scan. A separate future
+model may add stochastic dynamics, thermal noise, and particle anisotropy;
+those effects will not be folded silently into the analytical Langevin
+reference model.
 
 ## Citation
 

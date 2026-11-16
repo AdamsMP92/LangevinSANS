@@ -207,10 +207,11 @@ does not assume the generally non-universal relation
 interactions, and a self-consistent internal field are outside this first
 equilibrium reference model.
 
-## Planned extensions
+## Browser interface and planned extensions
 
-A browser interface can expose particle parameters, temperature, field range,
-the magnetization and `Gamma_kk` curves, a field selector, and the same SANS
-maps and real/reciprocal-space curves as SWSANS. A stochastic model with noise
-and anisotropy should be implemented as a separate backend so that its
+The browser interface exposes particle parameters, temperature, field range,
+the magnetization and `Gamma_kk` curves, the exact ODF, a field selector, and
+the same SANS maps and real/reciprocal-space curves as SWSANS. Its model
+selector currently contains the analytical solution. A stochastic model with
+noise and anisotropy should be implemented as a separate backend so that its
 dynamics and equilibrium assumptions remain explicit.
