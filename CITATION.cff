@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: "If you use this software in research, please cite the version you used."
+type: software
+title: "LangevinSANS"
+version: 0.1.0
+date-released: 2026-11-16
+authors:
+  - family-names: Adams
+    given-names: Michael P.
+    orcid: "https://orcid.org/0000-0001-9269-8087"
+abstract: >-
+  LangevinSANS is a tested analytical Python implementation of the standard
+  equilibrium Langevin model for identical, noninteracting spherical magnetic
+  particles. It evaluates field-dependent magnetization and magnetization
+  second moments and connects them to magnetic unpolarized and
+  polarization-averaged spin-flip small-angle neutron scattering observables
+  in perpendicular and parallel scattering geometries.
+keywords:
+  - Langevin model
+  - equilibrium magnetization
+  - magnetic small-angle neutron scattering
+  - SANS
+  - magnetic nanoparticles
+  - scientific software
+license: MIT
+repository-code: "https://github.com/AdamsMP92/LangevinSANS"
