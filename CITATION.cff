@@ -14,7 +14,8 @@ abstract: >-
   particles. It evaluates field-dependent magnetization and magnetization
   second moments and connects them to magnetic unpolarized and
   polarization-averaged spin-flip small-angle neutron scattering observables
-  in perpendicular and parallel scattering geometries.
+  in perpendicular and parallel scattering geometries. A browser-native
+  interface evaluates the analytical model and SANS observables locally.
 keywords:
   - Langevin model
   - equilibrium magnetization
@@ -24,3 +25,4 @@ keywords:
   - scientific software
 license: MIT
 repository-code: "https://github.com/AdamsMP92/LangevinSANS"
+url: "https://adamsmp92.github.io/LangevinSANS/"

@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from typing import cast
+
 import numpy as np
 from numpy.typing import ArrayLike
 
@@ -71,6 +73,34 @@ def dimensionless_field(
         particle.magnetic_moment_a_m2
         * field
         / (BOLTZMANN_J_PER_K * particle.temperature_k)
+    )
+
+
+def direction_cosine_density(u: ArrayLike, xi: float) -> FloatArray:
+    """Return the exact equilibrium density of ``u = cos(theta)``.
+
+    The density is normalized on ``[-1, 1]`` and is evaluated in a form that
+    remains stable for large positive or negative ``xi``. It is the azimuthal
+    marginal of the full Langevin orientational distribution.
+    """
+
+    direction_cosine = np.asarray(u, dtype=np.float64)
+    if not np.all(np.isfinite(direction_cosine)):
+        raise InputValidationError("Direction cosines must be finite.")
+    if np.any(np.abs(direction_cosine) > 1.0):
+        raise InputValidationError("Direction cosines must lie in [-1, 1].")
+    if not np.isfinite(xi):
+        raise InputValidationError("The dimensionless field must be finite.")
+
+    magnitude = abs(float(xi))
+    if magnitude == 0.0:
+        return np.full_like(direction_cosine, 0.5)
+
+    field_sign = 1.0 if xi > 0.0 else -1.0
+    normalization = magnitude / -np.expm1(-2.0 * magnitude)
+    return cast(
+        FloatArray,
+        normalization * np.exp(magnitude * (field_sign * direction_cosine - 1.0)),
     )
 
 
